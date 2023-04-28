@@ -38,8 +38,8 @@ function Game() {
 
   function place(board: number[][], col: number) {
     for (let i = 9; i >= 0; i--) {
-      if (board ? [i][col] == 0 : 0) {
-        board ? ([i][col] = currentTurn) : 0;
+      if (board?.[i]?.[col] === 0) {
+        board![i]![col] = currentTurn;
         return true;
       }
     }
