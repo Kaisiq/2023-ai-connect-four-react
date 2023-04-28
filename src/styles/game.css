@@ -1,0 +1,32 @@
+#root {
+  --person_color: blue;
+  --pc_color: red;
+  width: 100vw;
+  height: 100vh;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell {
+  aspect-ratio: 1;
+  background-color: white;
+  border: 3px black solid;
+  width: 50px;
+}
+
+.pc {
+  background-color: var(--pc_color);
+}
+
+.person {
+  background-color: var(--person_color);
+}
+.wrapper {
+  display: grid;
+  width: fit-content;
+  grid-template-columns: repeat(10, 1fr);
+  grid-row-gap: 0.4rem;
+  grid-column-gap: 0.4rem;
+}
