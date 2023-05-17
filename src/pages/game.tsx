@@ -121,6 +121,11 @@ function Game() {
           return row.map((el, index) => renderCell(el, index));
         })}
       </div>
+
+      <aside>
+        <button className="active">Start</button>
+        <button className="disabled">Restart</button>
+      </aside>
     </>
   );
 }
