@@ -114,6 +114,73 @@ function Game() {
     }
   }
 
+  function score(board: number[][]) {
+    var points = 0;
+
+    var vertical_points = 0;
+    var horizontal_points = 0;
+    var diagonal_points1 = 0;
+    var diagonal_points2 = 0;
+
+    // Sum vertical points
+    for (let row = 0; row < boardSize - 3; row++) {
+      // Check each column
+      for (let column = 0; column < boardSize; column++) {
+        // Evaluate the current column
+        let score = scorePosition(board, row, column, 1, 0);
+        if (score == finalScore) return finalScore;
+        if (score == -finalScore) return -finalScore;
+        vertical_points += score;
+      }
+    }
+
+    // Horizontal points
+    for (var row = 0; row < boardSize; row++) {
+      for (var column = 0; column < boardSize - 3; column++) {
+        var score = scorePosition(board, row, column, 0, 1);
+        if (score == finalScore) return finalScore;
+        if (score == -finalScore) return -finalScore;
+        horizontal_points += score;
+      }
+    }
+
+    // Diagonal points 1 (left-bottom)
+
+    for (let row = 0; row < boardSize - 3; row++) {
+      for (let column = 0; column < boardSize - 3; column++) {
+        let score = scorePosition(board, row, column, 1, 1);
+        if (score == finalScore) return finalScore;
+        if (score == -finalScore) return -finalScore;
+        diagonal_points1 += score;
+      }
+    }
+
+    // Diagonal points 2 (right-bottom)
+
+    for (var row = 3; row < boardSize; row++) {
+      for (var column = 0; column <= boardSize - 4; column++) {
+        let score = scorePosition(board, row, column, -1, +1);
+        if (score == finalScore) return finalScore;
+        if (score == -finalScore) return -finalScore;
+        diagonal_points2 += score;
+      }
+    }
+
+    points =
+      horizontal_points + vertical_points + diagonal_points1 + diagonal_points2;
+    return points;
+  }
+
+  function copyBoard(board: number[][]) {
+    let new_board: number[][] = [];
+    for (let i = 0; i < boardSize; i++) {
+      for (let j = 0; j < boardSize; j++) {
+        new_board[i]![j] = board[i]![j]!;
+      }
+    }
+    return new_board;
+  }
+
   return (
     <>
       <div className="wrapper">
