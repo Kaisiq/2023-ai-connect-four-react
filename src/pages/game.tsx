@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 function Game() {
-  const boardSize = 10;
+  let boardSize = 10;
   let status = 0; // 0: running, 1: won, 2: lost, 3: tie
   let maxDepth = 4; // Search depth
   let finalScore = 100000;
   let round = 0;
-  let winningArray = [];
+  let winningArray: number[][] = []; //holds tuples of the coordinates of he winning squares
   let iterations = 0;
   let currentTurn = 1; //1 is player 2 is AI
 
@@ -23,6 +23,7 @@ function Game() {
   const [board, setBoard] = useState(startBoard);
 
   function renderCell(number: number, col: number) {
+    //0- empty, 1- person, 2-pc, 3-winning
     if (number == 0) {
       return (
         <div className="cell empty" onClick={() => handleClick(col)}></div>
@@ -31,6 +32,8 @@ function Game() {
       return (
         <div className="cell person" onClick={() => handleClick(col)}></div>
       );
+    } else if (number == 3) {
+      return <div className="cell winning"></div>;
     } else {
       return <div className="cell pc" onClick={() => handleClick(col)}></div>;
     }
@@ -179,6 +182,42 @@ function Game() {
       }
     }
     return new_board;
+  }
+
+  function switchRound(round: number) {
+    return (round + 1) % 2;
+  }
+
+  function updateStatus() {
+    // Human won
+    if (score(board) == -finalScore) {
+      status = 1;
+      markWin();
+      alert("You have won!");
+    }
+
+    // Computer won
+    if (score(board) == finalScore) {
+      status = 2;
+      markWin();
+      alert("You have lost!");
+    }
+
+    // Tie
+    if (isFull(board)) {
+      status = 3;
+      alert("Tie!");
+    }
+
+    //TODO: Update status somewhere on page
+  }
+
+  function markWin() {
+    for (let i = 0; i < winningArray.length; i++) {
+      board[winningArray[i]![0]!]![winningArray[i]![1]!] = 3;
+    }
+
+    setBoard([...board]);
   }
 
   return (

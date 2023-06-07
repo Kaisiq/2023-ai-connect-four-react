@@ -5,22 +5,26 @@
   --disabled: rgb(175, 175, 175);
   /* width: 100vw; */
   height: 100vh;
-  background-color: gray;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-body{
-  padding:0;
-  margin:0;
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  background-color: gray;
+  align-items: center;
+  justify-content: center;
 }
 
 .cell {
   aspect-ratio: 1;
   background-color: white;
   border: 3px black solid;
-  width: 3.5rem;
+  width: 3.2rem;
 }
 
 .pc {
